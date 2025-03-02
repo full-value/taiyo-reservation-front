@@ -1,17 +1,8 @@
 'use client';
-
-import { useState, useEffect } from 'react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useState} from 'react';
 import DashboardLayout from '@/app/layout/DashboardLayout';
 import Spinner from '@shared/components/UI/Spinner';
-import { FaSearch, FaSort } from "react-icons/fa";
-import MessageIcon from '@public/assets/icons/message_icon.svg';
-import BellIcon from '@public/assets/icons/notification-01.svg';
-import ProfileDropDown from '@shared/components/UI/ProfileDropdown';
-import CustomButton from '@shared/components/UI/CustomButton';
-import { useDashboard } from '@/hooks/useDashboard';
-import Modal from '@shared/components/UI/Modal';
-import { notify } from '@/utils/notification';
-import { Modern_Antiqua } from 'next/font/google';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
@@ -31,8 +22,7 @@ const VisuallyHiddenInput = styled('input')({
 });
 
 
-export default function ExcelUploader() {
-  const [file, setFile] = useState(null);
+export default function ExcelUploader() { 
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] =useState(false);
   const [importedReservation, setImportedReservation] = useState<{flat_name:string,room_num:number,work_name:string,reservation_time:string,division:string}[]>([]);
@@ -43,14 +33,13 @@ export default function ExcelUploader() {
     setCurrentPage(page);
   };
 
-  const handleFileChange = async (event:any) => {
-   const file = event.target.files[0];
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];  // Optional chaining for safety
     if (!file) {
       setMessage('まずファイルを選択してください。');
       return;
     }
-
-
+  
     const formData = new FormData();
     formData.append('file', file);
     setIsLoading(true);
@@ -59,7 +48,7 @@ export default function ExcelUploader() {
         method: 'POST',
         body: formData,
       });
-
+  
       const data = await response.json();
       if (response.ok) {
         setMessage('ファイルのアップロードに成功しました。');
@@ -67,11 +56,12 @@ export default function ExcelUploader() {
         setImportedReservation(data.data);
       } else {
         setMessage('アップロードに失敗しました: ' + data.message);
-        // setIsLoading(false);
+        setIsLoading(false);  // Fix: Set loading state to false on failure
       }
     } catch (error) {
-      // setIsLoading(false);
+      setIsLoading(false);  // Ensure loading state is cleared in case of an error
       setMessage('ファイルのアップロード中にエラーが発生しました');
+      console.error(error);  // Log the error if needed
     }
   };
 

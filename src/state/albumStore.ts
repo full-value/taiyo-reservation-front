@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import { Album } from '@/types';
+
 
 // Define the store state type
 interface AlbumStore {
@@ -10,7 +10,6 @@ interface AlbumStore {
   isAlbumModalOpen: boolean;
   isUploadModalOpen: boolean;
   albumId: string | null;
-  editingAlbum: Album | null;
   dropDownList: string[];
   uploadUrls: Record<string, { original: string; compressed: string; fetchedAt: number; expiresIn: number; used: boolean }[]>;
 
@@ -20,7 +19,6 @@ interface AlbumStore {
   setAlbumModalOpen: (isOpen: boolean) => void;
   setUploadModalOpen: (isOpen: boolean) => void;
   setAlbumId: (id: string | null) => void;
-  setEditingAlbum: (album: Album | null) => void;
   setUploadUrls: (
     albumId: string, 
     urlPairs: { original: string; compressed: string; }[]
@@ -52,7 +50,6 @@ export const useAlbumStore = create<AlbumStore>()(
       setAlbumModalOpen: (isOpen: boolean) => set({ isAlbumModalOpen: isOpen }),
       setUploadModalOpen: (isOpen: boolean) => set({ isUploadModalOpen: isOpen }),
       setAlbumId: (id: string | null) => set({ albumId: id }),
-      setEditingAlbum: (album: Album | null) => set({ editingAlbum: album }),
 
       uploadUrls: {},
       setUploadUrls: (albumId: string, urlPairs: { original: string; compressed: string; }[]) =>

@@ -1,14 +1,15 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { usePathname } from 'next/navigation';
+
 import { useLogout } from '@/hooks/useAuth';
 import { useAlbumStore } from '@/state/albumStore';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import CollapseIcon from '@public/assets/icons/collapse.svg';
 import DashboardIcon from '@public/assets/icons/dashboard.svg';
-import UserIcon from '@public/assets/images/icon/user_icon.svg';
+
 import LogoutIcon from '@public/assets/icons/logout.svg';
 import AgendarIcon from '@public/assets/images/icon/agendar_icon.svg';
 import CalendarIcon from '@public/assets/images/icon/calendar_icon.svg';
@@ -20,25 +21,11 @@ import ApiIcon from '@public/assets/images/icon/api_icon.svg';
 
 
 const Sidebar = () => {
-  // const pathname = usePathname();
-  const pathname: string = window.location.pathname;
+  const pathname = usePathname();
   const { mutate: logout } = useLogout();
   const { isSidebarOpen, toggleSidebar } = useAlbumStore();
   const [isListsCollapsed, setIsListsCollapsed] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    if (typeof window !== 'undefined') {
-      handleResize(); // Check on initial render
-      window.addEventListener('resize', handleResize);
-
-      return () => window.removeEventListener('resize', handleResize);
-    }
-  }, []);
 
   const handleCollapseClick = () => {
     isMobile ? setIsListsCollapsed(!isListsCollapsed) : toggleSidebar();
@@ -47,10 +34,7 @@ const Sidebar = () => {
   const handleLogout = (e: React.MouseEvent) => {
     e.preventDefault();
     logout(); // Trigger logout
-  };
-   
-
- 
+  }; 
 
   return (
     <div
@@ -99,7 +83,7 @@ const Sidebar = () => {
           >
             <Link href="/dashboard" className="flex items-center">
               <DashboardIcon className={`w-[18px] h-[18px] ${pathname === '/dashboard' && "text-[#FFFFFF]"}`} />
-              {(isSidebarOpen || isMobile) && <span className={`ml-2 ${{pathname} === '/dashboard' && "text-[#FFFFFF]"}`}>ダッシュボード</span>}
+              {(isSidebarOpen || isMobile) && <span className={`ml-2 ${pathname === '/dashboard' && "text-[#FFFFFF]"}`}>ダッシュボード</span>}
             </Link>
           </li>
           <li

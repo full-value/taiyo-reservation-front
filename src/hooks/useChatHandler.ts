@@ -19,7 +19,7 @@ export const useChatHandler = () => {
       addMessage(chatMessages.welcome);
     }    
     hasMounted.current = true;
-  }, []);
+  }, [chatMessages]);
 
   const handleButtonClick = async (option: string, value:string) => {
     if (option === "変更する") {

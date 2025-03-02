@@ -2,7 +2,6 @@
 
 import { ReactNode } from 'react';
 import LeftImageContainer from '@/app/auth/components/LeftImageContainer';
-import LocaleSwitcher from '@shared/components/UI/LanguageSwitchButton';
 type AuthLayoutProps = {
   children: ReactNode;
 };

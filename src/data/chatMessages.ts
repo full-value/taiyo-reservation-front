@@ -89,7 +89,7 @@ export const chatMessages: { [key: string]: ChatMessage } = {
   },
   inputRoomNumNullError: {
     type: 'input',
-    content: '予約された部屋番号には作業がありません。別の部屋番号を入力してください',
+    content: '入力した部屋番号には作業がありません。別の部屋番号を入力してください',
     reqType: ['inputRoomNum']
   },
   inputRoomNumSucess_add: {
