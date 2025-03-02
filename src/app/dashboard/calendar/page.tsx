@@ -147,15 +147,11 @@ const Calendar = () => {
       try {
        
         deleteReservation(Number(selectedEvent?.id));
-  
-       
         setChangedData((prevChangedData) => {
           return (prevChangedData ?? []).filter(data => data.id !== selectedEvent.id);
         });
-  
-      
+
         notify('success', '成功!', '予約が成果的に削除されました!');
-  
         
         setModalOpen(false);
       } catch (error) {

@@ -44,7 +44,7 @@ export default function ExcelUploader() {
     formData.append('file', file);
     setIsLoading(true);
     try {
-      const response = await fetch('http://localhost:5000/upload', {
+      const response = await fetch('http://133.167.124.254:5000/upload', {
         method: 'POST',
         body: formData,
       });

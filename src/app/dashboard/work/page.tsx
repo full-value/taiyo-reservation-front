@@ -193,6 +193,7 @@ const DashboardPage = () => {
     
     try {
       const deletedWork = await deleteWork(Number(id));
+      console.log("ddddd",deletedWork)
       setWorks(prevworkss => {
         return prevworkss.filter(works => works.id !== deletedWork.Work.id);
       });

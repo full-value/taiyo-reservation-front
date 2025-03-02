@@ -28,11 +28,7 @@ export const useChatHandler = () => {
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify({reservation_id:value}),
       });
-      setField('changeReservationId',value);
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.message || 'search failed');
-      }
+      setField('changeReservationId',value);      
       const data = await res.json();
       chatMessages.selectReservationDate.options = data.availableDates;
       if (!data.availableDates || data.availableDates.length === 0){

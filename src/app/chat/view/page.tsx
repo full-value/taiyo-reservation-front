@@ -65,7 +65,7 @@ const WorkView = () => {
                 alt="Avatar"
                 width={100}   
                 height={100} 
-                className="flex w-[70px] h-[70px] rounded-full border-2 border-[#83d0e4]"
+                className="flex w-[80px] h-[80px] rounded-full border-2 border-[#83d0e4]"
               />
               <div className="flex flex-col flex-wrap w-full relative font-normal leading-[28px] text-[#6C73A8] text-[17px] break-all">
                 <Typewriter
