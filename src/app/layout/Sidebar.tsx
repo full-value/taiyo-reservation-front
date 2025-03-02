@@ -168,8 +168,8 @@ const Sidebar = () => {
               {(isSidebarOpen || isMobile) && <span className={`ml-2 ${pathname.startsWith('/dashboard/file') && "text-[#FFFFFF]"}`}>ファイル</span>}
             </Link>
           </li>
-           <li className="rounded-lg p-3 hover:bg-[#ff8892] text-white transition-all duration-100">
-            <Link href="/logout" onClick={handleLogout} className="flex items-center">
+           <li className="rounded-lg p-3 hover:bg-[#ff8892] text-white transition-all duration-100" onClick={handleLogout}>
+            <Link href=""  className="flex items-center">
               <LogoutIcon className={`w-[18px] "text-[#F3A0FF]" h-[18px] `} />
               {(isSidebarOpen || isMobile) && <span className={`ml-2 ${pathname.startsWith('/dashboard/logout') && "text-[#FFFFFF]"}`}>ログアウト</span>}
             </Link>
