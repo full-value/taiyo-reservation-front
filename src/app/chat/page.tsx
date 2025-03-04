@@ -35,19 +35,9 @@ const Chat = () => {
         </div>
       </div>
       <div className="flex flex-col inset-0 bg-[url('/assets/images/download.webp')] bg-cover bg-no-repeat  py-[9.5vh] ">
-        <div className="flex bg-white h-[70vh] mx-[5vw] rounded-[30px] p-5 relative gap-5">
-          <div className="flex flex-col w-[70%] bg-[#FFFFFF] p-5 rounded-[20px] relative overflow-y-auto">
+        <div className="flex  bg-white w-[70vw] h-[75vh] mx-[15vw] rounded-[30px] p-5 relative gap-5">
+          <div className="flex flex-col w-full bg-[#FFFFFF] p-5 rounded-[20px] relative overflow-y-auto">
             <ChatContainer />
-          </div>
-          <div className="flex flex-col w-[30%] bg-[#83d0e4] p-5 rounded-[20px] relative items-center text-center pointer-events-none">
-            <Image
-              src="/assets/images/consultant.png"
-              alt="consultant"
-              className="absolute bottom-0 left-1/2 w-[300px] h-auto select-none ease-in-out duration-200 transform -translate-x-1/2"
-              width={300} 
-              height={300}
-              priority 
-            />
           </div>
         </div>
       </div>
