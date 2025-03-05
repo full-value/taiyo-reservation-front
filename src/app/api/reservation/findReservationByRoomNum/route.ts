@@ -4,6 +4,7 @@ const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:5000/api';
 const BASE_URL = `${API_BASE_URL}/reservation/findReservationByRoomNum`;
 export async function POST(req: Request) {
   try {    
+    console.log( "base URL:::::",BASE_URL);
     
     const requestBody = await req.json();
     const res = await fetchWithAuth(BASE_URL, {

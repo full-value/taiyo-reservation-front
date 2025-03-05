@@ -84,7 +84,7 @@ const DashboardPage = () => {
             <table className="w-full  rounded-lg overflow-hidden mt-5  border-separate border-spacing-y-1">
               <thead>
                 <tr>
-                  {["番号", "ユーザー","物件", "部屋番号", "案件", "区分"].map((column) => (
+                  {["番号", "物件", "部屋番号", "案件", "区分"].map((column) => (
                     <th
                       key={column}
                       className="text-[#747b89] px-6 py-3 text-left text-[18px] font-medium uppercase tracking-wider cursor-pointer"

@@ -10,11 +10,11 @@ import CustomButton from '@shared/components/UI/CustomButton';
 import Spinner from '@shared/components/UI/Spinner';
 import Image from 'next/image';
 
-const Login = () => {
+const Login = () => { 
+  
   const router = useRouter();
   const { mutate, status } = useLogin();
   const isLoading = status === 'pending';
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordShow, setPasswordShow] = useState(false);
