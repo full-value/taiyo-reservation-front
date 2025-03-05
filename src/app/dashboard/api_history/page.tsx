@@ -46,21 +46,31 @@ const Api_Log = () => {
     const fetchData = async () => {
       try {
         const response = await getApiLogData(currentPage, searchTerm);
-        setApiLogs(response.data.map((log: any) => ({
-          id: log.id,
-          user_id: log.user_id || '',
-          timestamp: log.timestamp,
-          request_id: log.request_id || '',
-          endpoint: log.endpoint || '',
-          ip_address: log.ip_address || '',
-          level: log.level,
-          message: log.message,
-          method: log.method || '',
-          status_code: log.status_code || '',
-        })));
+
+        // Check if response.data is valid and an array
+        if (Array.isArray(response.data) && response.data.length > 0) {
+          setApiLogs(response.data.map((log: any) => ({
+            id: log.id,
+            user_id: log.user_id || '',
+            timestamp: log.timestamp,
+            request_id: log.request_id || '',
+            endpoint: log.endpoint || '',
+            ip_address: log.ip_address || '',
+            level: log.level,
+            message: log.message,
+            method: log.method || '',
+            status_code: log.status_code || '',
+          })));
+        } else {
+          // Handle the case where there is no data or the data is empty
+          setApiLogs([]);
+        }
+
+        // Set the total pages from the response, ensuring pagination is provided
         setTotalPage(response.pagination?.totalPages || 0);
       } catch (error) {
         console.error("Error fetching data", error);
+        // Optionally, you can display an error message to the user or log it.
       }
     };
 

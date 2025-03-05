@@ -195,7 +195,7 @@ const DashboardPage = () => {
       const deletedWork = await deleteWork(Number(id));
       console.log("ddddd",deletedWork)
       setWorks(prevworkss => {
-        return prevworkss.filter(works => works.id !== deletedWork.Work.id);
+        return prevworkss.filter(works => works.id !== id);
       });
       notify('success', '成功!', 'データが成果的に削除されました!');
     } catch (error) {      
