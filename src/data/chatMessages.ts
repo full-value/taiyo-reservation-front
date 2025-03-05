@@ -129,6 +129,12 @@ export const chatMessages: { [key: string]: ChatMessage } = {
     content: 'すでに予約されている予約番号を記⼊してください。（予約番号のみを入力してください。）',
     reqType: ['viewReservation']
   },
+  findReservationError:{
+    type: 'button',    
+    content: '該当の予約はありません。',
+    options: ['予約変更', '予約照会'],
+    reqType: ['return']
+  },
   inputBookedReservationNumError: {
     type: 'input',
     content: '予約番号のみを入力してください。',

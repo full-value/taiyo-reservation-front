@@ -104,7 +104,7 @@ const Chat = () => {
                   type="text"  
                   onChange={handleInputChange}
                   onKeyDown={(e)=>{handleKeyDown(e,message.reqType)}} 
-                  className="top-[50px] text-[20px] bg-[#dfe1ee] px-5 py-2 w-[30vw] border-none rounded-[5px] px-[10px] py-[5px] border-[0px] focus:outline-none focus:border-none" 
+                  className="top-[50px] text-[20px] bg-[#dfe1ee] w-[30vw] border-none rounded-[5px] px-[10px] py-[5px] border-[0px] focus:outline-none focus:border-none" 
                   placeholder="ここに入力してください..."
                 />
               </div>
@@ -212,19 +212,19 @@ const Chat = () => {
                   </thead>
                   <tbody>
                   {
-                  
-                  message.options.map((option: Option, idx: number) => {
-                    return (
-                      <tr key={idx} className="hover:bg-gray-100 even:bg-gray-50 odd:bg-white">
-                        <td className="px-4 py-3 border-b border-gray-300">{option.id}</td>
-                        <td className="px-4 py-3 border-b border-gray-300">{option.flat_name}</td>
-                        <td className="px-4 py-3 border-b border-gray-300">{option.room_num}</td>
-                        <td className="px-4 py-3 border-b border-gray-300">{option.work_name}</td>
-                        <td className="px-4 py-3 border-b border-gray-300">{option.reservation_time}</td>
-                        <td className="px-4 py-3 border-b border-gray-300">{option.division}</td>
-                      </tr>
-                    );
-                  })}
+                    message.options && message.options.length > 0 && (
+                      message.options.map((option: Option, idx: number) => (
+                        <tr key={idx} className="hover:bg-gray-100 even:bg-gray-50 odd:bg-white">
+                          <td className="px-4 py-3 border-b border-gray-300">{option.id}</td>
+                          <td className="px-4 py-3 border-b border-gray-300">{option.flat_name}</td>
+                          <td className="px-4 py-3 border-b border-gray-300">{option.room_num}</td>
+                          <td className="px-4 py-3 border-b border-gray-300">{option.work_name}</td>
+                          <td className="px-4 py-3 border-b border-gray-300">{option.reservation_time}</td>
+                          <td className="px-4 py-3 border-b border-gray-300">{option.division}</td>
+                        </tr>
+                      ))
+                    )
+                  }
                   </tbody>
                 </table>
                 <div className="flex gap-6 mt-5 justify-end">  

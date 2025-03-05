@@ -36,13 +36,12 @@ const Chat = () => {
       </div>
       <div className="flex flex-col inset-0 bg-[url('/assets/images/download.webp')] bg-cover bg-no-repeat  py-[9.5vh] ">
         <div className="flex  bg-white w-[70vw] h-[75vh] mx-[15vw] rounded-[30px] p-5 relative gap-5">
-          <div className="flex flex-col w-full bg-[#FFFFFF] p-5 rounded-[20px] relative overflow-y-auto">
+          <div className="flex flex-col w-full bg-[#FFFFFF] p-5 rounded-[20px] relative overflow-y-auto custom-scrollbar">
             <ChatContainer />
           </div>
         </div>
       </div>
-    </div>
-  
+    </div>  
   );
   
 

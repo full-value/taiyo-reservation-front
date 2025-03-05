@@ -169,7 +169,31 @@ export const useChatHandler = () => {
           chatMessages.selectReservationDate.options = data.availableDates;
           return addMessage(chatMessages.selectReservationDate);
         }else if(chatData.requirement === "予約変更"){
-          return addMessage(chatMessages.inputBookedReservationNum);
+          console.log(value,"this is hook work name")
+          // return addMessage(chatMessages.inputBookedReservationNum);         
+          const res = await fetch('/api/reservation/findReservationByRoomNum', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify({flat_name:chatData.flatName,room_num:chatData.roomNum,work_name:value}),
+          });
+
+          if (!res.ok) {
+            const errorData = await res.json();
+            throw new Error(errorData.message || 'search failed');
+          }
+          
+          const data = await res.json();
+          console.log("this is data message ",data);
+          
+          if (!!data.message) {
+            return addMessage(chatMessages.findReservationError);
+          }
+          
+          const id = data.dataValues[0].id;
+          setField("changeReservationId",id);
+          chatMessages.changeableReservation.options = data.dataValues[0];
+          return addMessage(chatMessages.changeableReservation);
+          
         }
       }      
     } else if(reqType === "selectDivision"){      
@@ -213,8 +237,7 @@ export const useChatHandler = () => {
         if (data.dataValues && data.dataValues.length > 0) {
           data.dataValues[0].reservation_time = chatData.changeReservationDate; // Update reservation_time
           data.dataValues[0].division = value; // Update division
-        }       
-       
+        }              
         setField('changeReservationDivision', value);
         chatMessages.changeReservation.options = data.dataValues[0];        
         return addMessage(chatMessages.changeReservation);
