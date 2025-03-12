@@ -9,12 +9,59 @@ import Modal from '@shared/components/UI/Modal';
 import { notify } from '@/utils/notification';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import { styled } from '@mui/material/styles';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Paper } from '@mui/material';
+import { ChangeEvent } from 'react';
+import MenuItem from '@mui/material/MenuItem';
 
 interface Employee {
   id: number;
   name: string;
   address: string
 }
+
+interface Row {
+  id: number;
+  roomNum: number;
+  workName: string;
+}
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(40%)',
+  height: 1,
+  overflow: 'hidden',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  whiteSpace: 'nowrap',
+  width: 1,
+});
+const currencies = [
+  { "id": 1, "name": "貯水槽清掃" },
+  { "id": 2, "name": "排水管清掃" },
+  { "id": 3, "name": "雨水管清掃" },
+  { "id": 4, "name": "給排水設備点検" },
+  { "id": 5, "name": "受水槽・高架水槽補修" },
+  { "id": 6, "name": "受水槽・高架水槽更新" },
+  { "id": 7, "name": "給水ポンプ分解整備" },
+  { "id": 8, "name": "給水ポンプ更新" },
+  { "id": 9, "name": "排水ポンプ更新" },
+  { "id": 10, "name": "給排水管設備劣化診断" },
+  { "id": 11, "name": "共用部給水管更新" },
+  { "id": 12, "name": "共用部排水管更新" },
+  { "id": 13, "name": "専有部給水管更新" },
+  { "id": 14, "name": "専有部排水管更新" },
+  { "id": 15, "name": "水道メーター交換" },
+  { "id": 16, "name": "戸別バルブ更新" },
+  { "id": 17, "name": "消防用連結送水管更新" },
+  { "id": 18, "name": "給湯管更新" },
+  { "id": 19, "name": "防水・塗装工事" },
+  { "id": 20, "name": "非常照明器具の更新" },
+  { "id": 21, "name": "配電盤の更新" }
+];
+
 const DashboardPage = () => {
   const { getFlatData,changeFlat,createFlat, deleteFlat} = useDashboard();
   const [employees, setEmployees] = useState<{ id: number, name: string, address: string}[]>([]);
@@ -27,6 +74,11 @@ const DashboardPage = () => {
   const [sortDirection, setSortDirection] = useState("asc");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+  const [open, setOpen] = useState(false);
+  const [uploadfile, setUploadfile] = useState<File | null>(null);
+  
+  const [rows, setRows] = useState<Row[]>([{ id: 1, roomNum: 0, workName: '' }]);
+
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
     setCurrentPage(page);
@@ -47,7 +99,10 @@ const DashboardPage = () => {
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
-
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0] || null;
+    setUploadfile(file);
+  };
   const handleSort = (column: string) => {
     if (sortColumn === column) {
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
@@ -103,8 +158,7 @@ const DashboardPage = () => {
     }
   
     const updatedFlatData = { id: modalContent.employee.id, name: name, address: address };
-    console.log(updatedFlatData);
-  
+
     try {
       await changeFlat(updatedFlatData);
       setEmployees(prevEmployees =>
@@ -121,8 +175,18 @@ const DashboardPage = () => {
     handleCloseModal();
   };
   
-  const handleCreate = async () =>{
-    const saveFlatData = { name: name, address: address }
+  const handleCreate = async () => {
+    const formData = new FormData();
+    if (uploadfile) {
+      formData.append('file', uploadfile);
+      const response = await fetch('http://133.167.124.254:5000/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      console.log(response);
+    }
+    
+    const saveFlatData = { name: name, address: address, works:rows}
     try {
       const createdFlat = await createFlat(saveFlatData);
       setEmployees(prevEmployees => [
@@ -160,6 +224,21 @@ const DashboardPage = () => {
   
     handleCloseModal();
   };
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, index: number, field: keyof Row) => {
+    const newRows = [...rows];
+    if (field === 'roomNum') {
+      newRows[index].roomNum = parseInt(e.target.value) || 0;
+    } else if (field === 'workName') {
+      newRows[index].workName = e.target.value;
+    }
+    setRows(newRows);
+  };
+
+  const handleAddRow = () => {
+    const newRow = { id: rows.length + 1, roomNum: 0, workName: '' };
+    setRows([...rows, newRow]);
+  };
+
 
   return (
     <DashboardLayout>
@@ -293,6 +372,66 @@ const DashboardPage = () => {
                           onChange={(e) => setAddress(e.target.value)}
                           className="w-full p-2 border border-gray-300 rounded"
                       />
+                       <Button
+                        component="label"
+                        role={undefined}
+                        variant="contained"
+                        tabIndex={-1}
+                        // onClick={handleUpload}
+                        startIcon={<CloudUploadIcon />}
+                      >
+                        アップロード
+                        <VisuallyHiddenInput
+                          type="file"
+                          accept="*.*"
+                          onChange={(event) => handleFileChange(event)}
+                          multiple
+                        />
+                      </Button>
+                      <div style={{display: 'flex', flexDirection: 'column', maxWidth: '600px',}}>
+                        <TableContainer component={Paper}>
+                          <Table>
+                            <TableHead>
+                              <TableRow >
+                                <TableCell className='text-[20px]'>部屋番号</TableCell>
+                                <TableCell className='text-[20px]'>案件名</TableCell>
+                              </TableRow>
+                            </TableHead>
+                            <TableBody>
+                              {rows.map((row, index) => (
+                                <TableRow key={row.id}>                                  
+                                  <TableCell>
+                                    <TextField
+                                      type='number'
+                                      minRows = {0}
+                                      value={row.roomNum}
+                                      onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e, index, 'roomNum')}
+                                      className='w-20'                          
+                                    />
+                                  </TableCell>
+                                  <TableCell>
+                                    <TextField
+                                      select
+                                      value={row.workName}  
+                                      onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e, index, 'workName')}
+                                      className="w-full p-2 border border-gray-300 rounded"
+                                    >
+                                      {currencies.map((option, index) => (
+                                        <MenuItem key={`${option.name}-${index}`} value={option.name}>
+                                          {option.name}
+                                        </MenuItem>
+                                      ))}
+                                    </TextField>
+                                  </TableCell>                                  
+                                </TableRow>
+                              ))}
+                            </TableBody>
+                          </Table>
+                        </TableContainer>
+                        <Button onClick={handleAddRow}　className='font-bold text-[20px]' variant="contained" style={{ marginTop: '20px' }}>
+                         案件追加
+                        </Button>
+                      </div>
                   </div>
                   <div className="flex justify-end mt-4 space-x-2">
                       <button
