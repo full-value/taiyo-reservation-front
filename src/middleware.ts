@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server';
 
 export async function middleware(req: NextRequest) {
   const url = req.nextUrl.pathname;
-  const userRole = req.cookies.get('userRole')?.value || null;
+
 
   // Redirect root `/` to `/dashboard`
   if (url === '/') {
