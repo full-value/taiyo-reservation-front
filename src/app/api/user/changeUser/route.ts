@@ -4,7 +4,7 @@ import { fetchWithAuth } from '@/utils/fetchUtils';
 export async function POST(req: Request) {
   try {
  
-    const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:5000';
+    const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:5001';
     const requestBody = await req.json();
     const response = await fetchWithAuth(`${API_BASE_URL}/api/user/changeUser`, {
       method: 'POST',

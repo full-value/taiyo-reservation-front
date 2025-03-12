@@ -3,7 +3,7 @@ import { setCookie } from '@/utils/cookieUtils';
 
 export async function POST(req: Request) {
   try {
-    const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:5000';
+    const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:5001';
     // Parse the request body to extract the refreshToken
     const { refreshToken } = await req.json();
 

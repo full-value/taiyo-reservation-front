@@ -4,7 +4,7 @@ import { setCookie } from '@/utils/cookieUtils';
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:5000';  
+    const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:5001';  
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 15000); // 15 seconds timeout
 
