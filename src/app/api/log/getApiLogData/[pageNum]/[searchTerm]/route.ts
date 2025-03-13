@@ -7,7 +7,7 @@ export async function GET(req: Request) {
     const pageNum = url.pathname.split('/')[4];
     const searchTerm = url.pathname.split('/')[5] || '';
 
-    const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:5001';
+    const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:5000';
 
    
     const response = await fetchWithAuth(`${API_BASE_URL}/log/getApiLogData/${pageNum}/${searchTerm}`, {

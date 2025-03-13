@@ -5,6 +5,8 @@ import { useAuthStore } from '@/state/authStore';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { notify } from '@/utils/notification'
 
+// const router = useRouter();
+
 
 interface PasswordResetVariables {
   email: string;
@@ -117,6 +119,7 @@ export const useLogin = () => {
     mutationFn: login,
     onSuccess: () => {
       setAuthenticatedUser(true);
+      // router.push('/dashboard'),
       notify('success', 'ログインしました', 'ログインに成功しました!')
     },
     onError: (error) => {
@@ -174,36 +177,36 @@ export const useLogout = () => {
 };
 
 // // Hook for refreshing the token
-export const useTokenRefresh = () => {
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-  const setAuthenticatedUser = useAuthStore((state) => state.setAuthenticatedUser);
+// export const useTokenRefresh = () => {
+//   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+//   const setAuthenticatedUser = useAuthStore((state) => state.setAuthenticatedUser);
   
-  // const queryClient = useQueryClient();
-  // const [error, setError] = useState<string | null>(null);
+//   // const queryClient = useQueryClient();
+//   // const [error, setError] = useState<string | null>(null);
 
-  const mutation = useMutation<RefreshTokenResponse, Error>({
-    mutationFn: refreshTokenAPI,
-    onSuccess: () => {
-      // setError(null);
-    },
-    onError: () => {
-      setAuthenticatedUser(false);
-      notify('error', 'Error', 'Session expired, please log in again.');
-      // setError('Session expired, please log in again.');
-    }
-  });
+//   const mutation = useMutation<RefreshTokenResponse, Error>({
+//     mutationFn: refreshTokenAPI,
+//     onSuccess: () => {
+//       // setError(null);
+//     },
+//     onError: () => {
+//       setAuthenticatedUser(false);
+//       notify('error', 'Error', 'Session expired, please log in again.');
+//       // setError('Session expired, please log in again.');
+//     }
+//   });
 
-  useEffect(() => {
-    if (!isAuthenticated) return;
+//   useEffect(() => {
+//     if (!isAuthenticated) return;
 
-    const refreshInterval = 60 * 15 * 1000 * 0.8;;
+//     const refreshInterval = 60 * 15 * 1000 * 0.8;;
 
-    const interval = setInterval(() => {
-      mutation.mutate();  // Attempt to refresh the token
-    }, refreshInterval);  // Refresh every 15 minutes
+//     const interval = setInterval(() => {
+//       mutation.mutate();  // Attempt to refresh the token
+//     }, refreshInterval);  // Refresh every 15 minutes
 
-    return () => clearInterval(interval);
-  }, [mutation]);
+//     return () => clearInterval(interval);
+//   }, [mutation]);
 
-  return mutation;
-};
+//   return mutation;
+// };

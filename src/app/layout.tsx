@@ -8,7 +8,7 @@ import localFont from 'next/font/local';
 import { ToastContainer } from 'react-toastify';
 
 import ClientQueryClientProvider from '@shared/components/ClientQueryClientProvider';
-import TokenRefresh from '@shared/components/TokenRefresh';
+// import TokenRefresh from '@shared/components/TokenRefresh';
 import './globals.css';
 import 'react-toastify/dist/ReactToastify.css';
 // Local Font Example for Onest
@@ -49,7 +49,7 @@ export default async function LocaleLayout({
       <body className={`${onestFont.variable}`}>
         <NextIntlClientProvider>
           <ClientQueryClientProvider>
-            <TokenRefresh />
+            {/* <TokenRefresh /> */}
             {children}
             <ToastContainer
               position="top-right"
