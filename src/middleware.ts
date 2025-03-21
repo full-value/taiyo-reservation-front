@@ -1,15 +1,16 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { getCookie } from '@/utils/cookieUtils';
 
 export async function middleware(req: NextRequest) {
   const url = req.nextUrl.pathname;
-  const userRole = req.cookies.get('userRole')?.value || null;
+  const accessToken = getCookie('userRole');
 
   // Redirect root `/` to `/dashboard`
   if (url === '/') {
     return NextResponse.redirect(new URL('/chat', req.url));
   }
-  const accessToken = req.cookies.get('accessToken')?.value || null;
+
   if (url.startsWith('/dashboard')) {
     if (!accessToken) {
       return NextResponse.redirect(new URL('/chat', req.url));
