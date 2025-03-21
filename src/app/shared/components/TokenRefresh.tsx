@@ -1,12 +1,12 @@
-'use client';
+// 'use client';
 
-import { useTokenRefresh } from '@/hooks/useAuth';
+// import { useTokenRefresh } from '@/hooks/useAuth';
 
-const TokenRefresh = () => {
+// const TokenRefresh = () => {
 
-  useTokenRefresh(); // Trigger token refresh
+//   useTokenRefresh(); // Trigger token refresh
 
-  return null;
-};
+//   return null;
+// };
 
-export default TokenRefresh;
+// export default TokenRefresh;

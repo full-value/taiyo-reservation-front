@@ -4,7 +4,7 @@ import { setCookie } from '@/utils/cookieUtils';
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:5000';  
+    const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:5000/api';  
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 15000); // 15 seconds timeout
 
@@ -27,7 +27,11 @@ export async function POST(req: Request) {
     }
 
     const data = await res.json();
+<<<<<<< HEAD
     await setCookie('accessToken', data.accessToken, { maxAge: 60 * 60 * 30});
+=======
+    await setCookie('accessToken', data.accessToken, { maxAge: 60 * 60 * 30 });
+>>>>>>> 0c9406af903b4a80969b53026ca76f70c536d25c
     await setCookie('refreshToken', data.refreshToken, { maxAge: 60 * 60 * 30 });
 
     return NextResponse.json(data);

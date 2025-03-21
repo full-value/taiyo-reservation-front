@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "concurrently \"next dev\"  \"cd ../taiyo-reservation-back && npm run dev\"",
     "build": "next build",
-    "start": "next start",
+    "start": "concurrently \"next start -p 80\"  \"cd ../taiyo-reservation-back && npm run start \"",
     "lint": "next lint"
   },
   "dependencies": {
@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
+    "@next/eslint-plugin-next": "^15.2.2",
     "@svgr/webpack": "^8.1.0",
     "@types/formidable": "^3.4.5",
     "@types/node": "^20",
