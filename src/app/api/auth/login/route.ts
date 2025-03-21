@@ -27,11 +27,7 @@ export async function POST(req: Request) {
     }
 
     const data = await res.json();
-<<<<<<< HEAD
-    await setCookie('accessToken', data.accessToken, { maxAge: 60 * 60 * 30});
-=======
     await setCookie('accessToken', data.accessToken, { maxAge: 60 * 60 * 30 });
->>>>>>> 0c9406af903b4a80969b53026ca76f70c536d25c
     await setCookie('refreshToken', data.refreshToken, { maxAge: 60 * 60 * 30 });
 
     return NextResponse.json(data);

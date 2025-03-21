@@ -4,11 +4,8 @@ import { getCookie } from '@/utils/cookieUtils';
 
 export async function middleware(req: NextRequest) {
   const url = req.nextUrl.pathname;
-<<<<<<< HEAD
   const accessToken = getCookie('userRole');
-=======
 
->>>>>>> 0c9406af903b4a80969b53026ca76f70c536d25c
 
   // Redirect root `/` to `/dashboard`
   if (url === '/') {
