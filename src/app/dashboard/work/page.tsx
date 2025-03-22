@@ -231,7 +231,7 @@ const DashboardPage = () => {
             <FaSearch className="absolute right-3 top-3 text-gray-400" />
           </div>
 
-          <div className="overflow-x-aut ">
+          <div className="overflow-x-auto ">
             <table className="w-full bg-gray-800 text-white rounded-lg overflow-hidden">
               <thead>
                 <tr className="bg-gray-700">

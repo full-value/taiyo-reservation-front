@@ -8,6 +8,7 @@ import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { useDashboard } from '@/hooks/useDashboard';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -28,6 +29,7 @@ export default function ExcelUploader() {
   const [importedReservation, setImportedReservation] = useState<{flat_name:string,room_num:number,work_name:string,reservation_time:string,division:string}[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+  const { uploadReservationData } = useDashboard();
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
     setCurrentPage(page);
@@ -44,11 +46,9 @@ export default function ExcelUploader() {
     formData.append('file', file);
     setIsLoading(true);
     try {
-      const response = await fetch('http://133.167.124.254:5000/upload', {
-        method: 'POST',
-        body: formData,
-      });
-  
+      const response = await uploadReservationData(formData);
+      console.log(formData);
+      
       const data = await response.json();
       if (response.ok) {
         setMessage('ファイルのアップロードに成功しました。');
@@ -96,7 +96,7 @@ export default function ExcelUploader() {
             <p className='text-white'>{message}</p>
             {/* <p className='text-white'>{file}</p> */}
           </div>
-          <div className="overflow-x-aut ">
+          <div className="overflow-x-auto ">
             <table className="w-full bg-gray-800 text-white rounded-lg overflow-hidden">
               <thead>
                 <tr className="bg-gray-700">

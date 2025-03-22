@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "concurrently \"next dev\"  \"cd ../taiyo-reservation-back && npm run dev\"",
     "build": "next build",
-    "start": "concurrently \"next start -p 80\"  \"cd ../taiyo-reservation-back && npm run start \"",
+    "start": "concurrently \"next start \"  \"cd ../taiyo-reservation-back && npm run start \"",
     "lint": "next lint"
   },
   "dependencies": {

@@ -48,9 +48,12 @@ const Chat = () => {
         setShowOptions(true);
       }, totalTypingTime);
     }
-    if (messageEndRef.current) {
-      messageEndRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
-    }
+    setTimeout(() => {
+      if (messageEndRef.current) {      
+        messageEndRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      }
+    }, 1000);
+    
     hasMounted.current = true;
   }, [messages, resetForm]);
 
@@ -65,7 +68,7 @@ const Chat = () => {
   };
 
   return (
-    <div className="flex flex-col w-full gap-[10px]" style={{ maxHeight: '800px', overflowY: 'scroll' }}>
+    <div className="flex flex-col w-full gap-[10px] pr-5"  style={{ maxHeight: '800px', overflowY: 'scroll' }}>
       {messages.map((message, index) => (
         <div key={index} className={`flex gap-2 mt-3 ${messages.length !== 1 && messages.length!== index+1 && "pointer-events-none"}`}>
           <Image
@@ -81,12 +84,12 @@ const Chat = () => {
                   strings: message.content,
                   autoStart: true,
                   loop: false,
-                  deleteSpeed: 0,
-                  delay: 20, // Adjusted delay for a better effect
+                  deleteSpeed: 100,
+                  delay: 1, // Adjusted delay for a better effect
                 }}
               />
             
-            {message.type === 'button' && showOptions && (
+            {message.type === 'button' && (
               <div className="flex w-full gap-3 flex-wrap mt-[10px]">
                   {message.options && message.options.map((option:string, idx:number) => (
                     <div key={idx}
@@ -98,18 +101,18 @@ const Chat = () => {
                   ))}
               </div>
             )}
-             {message.type === 'input' && showOptions && (
+             {message.type === 'input' && (
               <div className="flex gap-3 flex-wrap mt-[10px]">
                 <input 
                   type="text"  
                   onChange={handleInputChange}
                   onKeyDown={(e)=>{handleKeyDown(e,message.reqType)}} 
-                  className="top-[50px] text-[20px] bg-[#dfe1ee] w-[30vw] border-none rounded-[5px] px-[10px] py-[5px] border-[0px] focus:outline-none focus:border-none" 
+                  className="top-[50px] w-[65vw] text-[20px] bg-[#dfe1ee]  border-none rounded-[5px] px-[10px] py-[5px] border-[0px] sm:w-[30vw] focus:outline-none focus:border-none" 
                   placeholder="ここに入力してください..."
                 />
               </div>
             )}
-            {message.type === 'select' && showOptions && (
+            {message.type === 'select' && (
               <div className="flex flex-col w-full gap-3 flex-wrap mt-[10px]">
                 {Array.isArray(message.options) &&
                   message.options.map((option: Option, idx: number) => {
@@ -149,11 +152,11 @@ const Chat = () => {
                 </div>  
               </div>
             )}
-            {message.type === 'reservationView' && showOptions && (
+            {message.type === 'reservationView' && (
               <div className="flex flex-col w-full gap-3 flex-wrap mt-[10px] relative  ">
                 <div 
                   className={clsx(
-                    "relative w-[40%] rounded-[10px] border border-black/10 bg-no-repeat mt-8 p-7 overflow-hidden bg-contain bg-center",
+                    "relative w-[90%] sm:w-[40%] rounded-[10px] border border-black/10 bg-no-repeat mt-8 p-7 overflow-hidden bg-contain bg-center",
                     message.state === "OK"
                       ? "bg-[url('/assets/images/check_bg.png')] shadow-[3px_2px_34px_0px_rgba(0,210,0,0.5)]"
                       : "shadow-[1px_2px_20px_0px_rgba(0,0,0,0.4)]"
@@ -164,7 +167,7 @@ const Chat = () => {
                     予約番号：{message.options.id}
                   </p>
                   <div className="flex gap-6 justify-between mt-6 relative">
-                    <div className="flex flex-col">
+                    <div className=" flex-col hidden sm:flex">
                       <div className="relative ml-0 m-auto">
                         <Image
                           className="select-none rounded-4"
@@ -197,42 +200,77 @@ const Chat = () => {
                 </div>  
               </div>
             )}
-            {message.type === 'viewReservationList' && showOptions && (
+            {message.type === 'viewReservationList' && (
               <div className="p-5 max-w-full overflow-x-auto">
-                <table className="w-full table-auto border border-gray-300">
-                  <thead>
-                    <tr>
-                      <th className="px-4 py-3 text-left bg-gray-100 font-bold border-b-2 border-gray-300">予約番号</th>
-                      <th className="px-4 py-3 text-left bg-gray-100 font-bold border-b-2 border-gray-300">物件名</th>
-                      <th className="px-4 py-3 text-left bg-gray-100 font-bold border-b-2 border-gray-300">部屋番号</th>
-                      <th className="px-4 py-3 text-left bg-gray-100 font-bold border-b-2 border-gray-300">作業内容</th>
-                      <th className="px-4 py-3 text-left bg-gray-100 font-bold border-b-2 border-gray-300">予約時間</th>
-                      <th className="px-4 py-3 text-left bg-gray-100 font-bold border-b-2 border-gray-300">時間帯</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  {
-                    message.options && message.options.length > 0 && (
-                      message.options.map((option: Option, idx: number) => (
-                        <tr key={idx} className="hover:bg-gray-100 even:bg-gray-50 odd:bg-white">
-                          <td className="px-4 py-3 border-b border-gray-300">{option.id}</td>
-                          <td className="px-4 py-3 border-b border-gray-300">{option.flat_name}</td>
-                          <td className="px-4 py-3 border-b border-gray-300">{option.room_num}</td>
-                          <td className="px-4 py-3 border-b border-gray-300">{option.work_name}</td>
-                          <td className="px-4 py-3 border-b border-gray-300">{option.reservation_time}</td>
-                          <td className="px-4 py-3 border-b border-gray-300">{option.division}</td>
-                        </tr>
-                      ))
-                    )
-                  }
-                  </tbody>
-                </table>
+                <div className="hidden sm:block w-full overflow-auto max-w-[700px]">
+                  <table className="w-full table-auto border border-gray-300 ">
+                    <thead>
+                      <tr>
+                        <th className="px-4 py-3 text-left bg-gray-100 font-bold border-b-2 border-gray-300">予約番号</th>
+                        <th className="px-4 py-3 text-left bg-gray-100 font-bold border-b-2 border-gray-300">物件名</th>
+                        <th className="px-4 py-3 text-left bg-gray-100 font-bold border-b-2 border-gray-300">部屋番号</th>
+                        <th className="px-4 py-3 text-left bg-gray-100 font-bold border-b-2 border-gray-300">作業内容</th>
+                        <th className="px-4 py-3 text-left bg-gray-100 font-bold border-b-2 border-gray-300">予約時間</th>
+                        <th className="px-4 py-3 text-left bg-gray-100 font-bold border-b-2 border-gray-300">時間帯</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {
+                        message.options && message.options.length > 0 && (
+                          message.options.map((option: Option, idx: number) => (
+                            <tr key={idx} className="hover:bg-gray-100 even:bg-gray-50 odd:bg-white">
+                              <td className="px-4 py-3 border-b border-gray-300">{option.id}</td>
+                              <td className="px-4 py-3 border-b border-gray-300">{option.flat_name}</td>
+                              <td className="px-4 py-3 border-b border-gray-300">{option.room_num}</td>
+                              <td className="px-4 py-3 border-b border-gray-300">{option.work_name}</td>
+                              <td className="px-4 py-3 border-b border-gray-300">{option.reservation_time}</td>
+                              <td className="px-4 py-3 border-b border-gray-300">{option.division}</td>
+                            </tr>
+                          ))
+                        )
+                      }
+                    </tbody>
+                  </table>
+                </div>
+                <div className="flex flex-col w-full gap-3 flex-wrap mt-[10px] relative sm:hidden ">
+                  <div 
+                    className={clsx(
+                      "relative w-[90%] sm:w-[40%] rounded-[10px] border border-black/10 bg-no-repeat mt-8 p-7 overflow-hidden bg-contain bg-center",
+                      message.state === "OK"
+                        ? "bg-[url('/assets/images/check_bg.png')] shadow-[3px_2px_34px_0px_rgba(0,210,0,0.5)]"
+                        : "shadow-[1px_2px_20px_0px_rgba(0,0,0,0.4)]"
+                    )}
+                  >
+                    <div className="sm:hidden absolute inset-0 bg-white/70"></div>
+                      <p className="font-semibold text-[20px] leading-[25.5px] text-[#091428] opacity-100 relative">
+                        予約番号：{message.options.id}
+                      </p>
+                      <div className="flex gap-6 justify-between mt-6 relative">
+                        <div className="flex flex-col gap-2 my-[9px]">
+                          <p className="font-normal text-5 leading-[19px] text-[#091428]">{message.options.flat_name}</p>
+                          <p className="font-normal text-4 leading-[14px] text-[#858688]">物件名</p>
+                          <hr />
+                          <p className="font-normal text-5 leading-[19px] text-[#091428]">{message.options.room_num}</p>
+                          <p className="font-normal text-4 leading-[14px] text-[#858688]">部屋番号</p>
+                          <hr />
+                          <p className="font-normal text-5 leading-[19px] text-[#091428]">{new Date(message.options.reservation_time).toLocaleDateString('en-CA')}</p>
+                          <p className="font-normal text-4 leading-[14px] text-[#858688]">予約⽇</p>
+                          <hr />
+                          <p className="font-normal text-5 leading-[19px] text-[#091428]">{message.options.division}</p>
+                          <p className="font-normal text-4 leading-[14px] text-[#858688]">予約区分</p>
+                        </div>
+                    </div>
+                  </div>
+   
+                </div>
+
+
                 <div className="flex gap-6 mt-5 justify-end">  
                   <Button  label='戻る' onClickHandler={()=>handleButtonClick("戻る",'')}/>
                 </div>
               </div>
             )}
-            <div ref={messageEndRef} className="mt-[30px]"></div>
+            <div ref={messageEndRef} className="mt-[60px]"></div>
           </div>
         </div>
       ))}

@@ -56,13 +56,6 @@ const DashboardPage = () => {
                 <p className="font-bold text-[#8e95a3] text-[20px] mt-[-10px]">物件数</p>
               </div>
             </div>
-            {/* <div className="flex w-[300px] gap-5 bg-[#242a38] justify-center px-4 py-5 rounded-[10px] ">
-              <UserIcon className="w-[60px] h-[60px] text-[#afb6c4]" />
-              <div className="flex flex-col mt-[-10px]">
-                <p className="font-semibold text-[#f9fbfc] text-[50px]">{totalUserNum}</p>
-                <p className="font-bold text-[#8e95a3] text-[20px] mt-[-10px]">ユーザー数</p>
-              </div>
-            </div> */}
             <div className="flex w-[300px] gap-5 bg-[#242a38] justify-center px-4 py-5 rounded-[10px] ">
               <ReservationIcon className="w-[60px] h-[60px] text-[#afb6c4]" />
               <div className="flex flex-col mt-[-10px]">
@@ -79,38 +72,6 @@ const DashboardPage = () => {
               <Bar dataKey="予約件数" fill="#8884d8" />
             </BarChart>
           </ResponsiveContainer>
-          <div className="flex flex-col bg-[#242a38] px-[30px] py-[30px] rounded-[10px] mt-[20px]">
-            <p className="font-bold text-[25px] text-[#f9fbfc]">本日のご予約</p>
-            <table className="w-full  rounded-lg overflow-hidden mt-5  border-separate border-spacing-y-1">
-              <thead>
-                <tr>
-                  {["番号", "物件", "部屋番号", "案件", "区分"].map((column) => (
-                    <th
-                      key={column}
-                      className="text-[#747b89] px-6 py-3 text-left text-[18px] font-medium uppercase tracking-wider cursor-pointer"
-                    >
-                      <div className="flex items-center ">
-                        {column.charAt(0).toUpperCase() + column.slice(1)}
-                        
-                      </div>
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-              {todayReservationDatas && (todayReservationDatas.map((reservation, index) => (
-                <tr key={index} className="bg-[#2f3847] hover:bg-gray-700 text-[#a3aab5]">
-                  <td className="px-6 py-1 whitespace-nowrap rounded-l-[5px]">{reservation.id}</td>
-                  <td className="px-6 py-1 whitespace-nowrap">{reservation.flat_name}</td>
-                  <td className="px-6 py-1 whitespace-normal">{reservation.room_num}</td>
-                  <td className="px-6 py-1 whitespace-nowrap">{reservation.work_name}</td>
-                  <td className="px-6 py-1 whitespace-normal rounded-r-[5px]">{reservation.division}</td>
-                </tr>
-              )))}
-              </tbody>
-            </table> 
-          </div>
-
         </div>
   
       </div>

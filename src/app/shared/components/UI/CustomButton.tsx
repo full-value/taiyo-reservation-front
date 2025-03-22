@@ -43,7 +43,7 @@ const CustomButton: React.FC<Props> = ({
       disabled={disabled || (isLoading && !disableLoading)}
       aria-disabled={disabled || (isLoading && !disableLoading)} // Accessibility
       aria-busy={isLoading} // Accessibility for loading state
-      className={` flex items-center justify-center gap-2 text-white rounded-xl bg-[#00b900] shadow-[0px_4px_14px_0px_#00000040] font-medium focus:outline-none  p-[12px_30px] ${className}   ${
+      className={` flex items-center justify-center gap-2 text-white rounded-xl bg-[#00b900] shadow-[0px_4px_14px_0px_#00000040] font-medium focus:outline-none  p-[12px_20px] ${className}   ${
           disabled ? "cursor-not-allowed opacity-70" : ""
         }`}
      

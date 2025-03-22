@@ -8,10 +8,6 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import ErrorIcon from'@public/assets/icons/error_icon (log).svg';
 
-
-
-
-
 const Error_Log = () => {
   const {getErrorLogData} = useDashboard();
   const [errorLogs, setErrorLogs] = useState<{ id: number, timestamp: string, message:string}[]>([]);
@@ -88,7 +84,7 @@ const Error_Log = () => {
             <FaSearch className="absolute right-3 top-3 text-gray-400" />
           </div>
 
-          <div className="overflow-x-aut ">
+          <div className="overflow-x-auto ">
             <table className="w-full bg-gray-800 text-white rounded-lg overflow-hidden">
               <thead>
                 <tr className="bg-gray-700">

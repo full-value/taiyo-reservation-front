@@ -38,14 +38,13 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`sticky top-0 z-30 bg-gray-800 transition-all min-h-screen duration-100 rounded-r-[20px] border-r-[1px]  
+      className={`sticky top-0 z-30 bg-gray-800 transition-all sm:min-h-screen duration-100 border-r-[1px] h-fit  
         ${isSidebarOpen ? 'w-full md:w-64' : 'w-full md:w-20'} 
         ${!isMobile ? 'fixed ' : ''}`}
     >
       <div className="p-4">
-        <div className={`flex justify-between items-center mt-2 ${isMobile ? 'mb-3' : 'mb-16' } }`}>
-          <div className="flex items-center">
-            
+        <div className={`flex justify-between items-center gap-10 mt-2 ${isMobile ? 'mb-1' : 'mb-5' } }`}>
+          <div className="flex items-center">            
             {isSidebarOpen ? (
               <div className='flex justify-start items-center'>
                 <img
@@ -53,7 +52,6 @@ const Sidebar = () => {
                   alt="logo"
                   className="h-[40px] transition-all duration-100"
                 />
-                <p className='text-white font-bold text-[30px]'>Full Value</p>
               </div>
             ):(
               <img
@@ -64,7 +62,7 @@ const Sidebar = () => {
             )
             }
           </div>
-          <div className={`${(!isSidebarOpen && !isMobile) && 'absolute top-[90px] left-[27px]'}`}>
+          <div className={`${(!isSidebarOpen && !isMobile) ? 'sm:absolute sm:top-[90px] sm:left-[27px]':'sm:relative mb-10'}`}>
             <button className="" onClick={handleCollapseClick}>
               <CollapseIcon className="w-7 h-7" />
             </button>
@@ -73,7 +71,7 @@ const Sidebar = () => {
 
         <ul
           className={`space-y-2 ${
-            !isListsCollapsed ? 'hidden' : 'block pt-2'
+            (isSidebarOpen ) ? ' block pt-2' : 'sm:absolute sm:top-[130px] hidden'
           } md:block md:space-y-4 transition-all duration-100`}
         >
           <li
@@ -83,7 +81,7 @@ const Sidebar = () => {
           >
             <Link href="/dashboard" className="flex items-center">
               <DashboardIcon className={`w-[18px] h-[18px] ${pathname === '/dashboard' && "text-[#FFFFFF]"}`} />
-              {(isSidebarOpen || isMobile) && <span className={`ml-2 ${pathname === '/dashboard' && "text-[#FFFFFF]"}`}>ダッシュボード</span>}
+              {isSidebarOpen  && <span className={`ml-2 ${pathname === '/dashboard' && "text-[#FFFFFF]"}`}>ダッシュボード</span>}
             </Link>
           </li>
           <li
@@ -116,17 +114,7 @@ const Sidebar = () => {
               {(isSidebarOpen || isMobile) && <span className={`ml-2 ${pathname.startsWith('/dashboard/work') && "text-[#FFFFFF]"}`}>案件一覧</span>}
             </Link>
           </li>
-          {/* <li
-            className={`${
-              pathname.startsWith('/dashboard/user') ? 'bg-[#ff8892] text-white' : ''
-            } rounded-lg p-3 hover:bg-[#ff8892] text-white transition-all duration-100`}
-          >
-            <Link href="/dashboard/user" className="flex items-center">
-              <UserIcon className={`w-[18px] h-[18px] ${pathname.startsWith('/dashboard/user') && "text-[#FFFFFF]"}`} />
-              {(isSidebarOpen || isMobile) && <span className={`ml-2 ${pathname.startsWith('/dashboard/user') && "text-[#FFFFFF]"}`}>ユーザー管理</span>}
-            </Link>
-          </li> */}
-        
+                 
           <li
             className={`${
               pathname.startsWith('/dashboard/history') ? 'bg-[#ff8892] text-white' : ''
@@ -168,13 +156,12 @@ const Sidebar = () => {
               {(isSidebarOpen || isMobile) && <span className={`ml-2 ${pathname.startsWith('/dashboard/file') && "text-[#FFFFFF]"}`}>ファイル</span>}
             </Link>
           </li>
-           <li className="rounded-lg p-3 hover:bg-[#ff8892] text-white transition-all duration-100" onClick={handleLogout}>
+          <li className="rounded-lg p-3 hover:bg-[#ff8892] text-white transition-all duration-100" onClick={handleLogout}>
             <Link href=""  className="flex items-center">
               <LogoutIcon className={`w-[18px] "text-[#F3A0FF]" h-[18px] `} />
               {(isSidebarOpen || isMobile) && <span className={`ml-2 ${pathname.startsWith('/dashboard/logout') && "text-[#FFFFFF]"}`}>ログアウト</span>}
             </Link>
           </li>
-         
         </ul>
       </div>
     </div>

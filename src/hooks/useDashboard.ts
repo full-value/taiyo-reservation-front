@@ -103,10 +103,13 @@ export const useDashboard = () => {
 
   const createReservation = async (body: any) => fetchData('/api/reservation/createReservation', { method: 'POST', body: JSON.stringify(body) });
 
+  const uploadReservationData = async (body: FormData) => fetch('/api/reservation/uploadReservationData', {method: 'POST',  body });
+ 
+
   return {
     getFlatData, changeFlat, createFlat, deleteFlat, getWorkData, createWork, changeWork, deleteWork,
     getUserData, changeUser, deleteUser, createUser, getErrorLogData, getChangeLogData, getApiLogData,
     getNotificationNum, getNotification, markAsRead, getReservationListData, updateReservation, deleteReservation,
-    createReservation, getDashboardData, loading, error,
+    createReservation, getDashboardData, loading, error,uploadReservationData
   };
 };

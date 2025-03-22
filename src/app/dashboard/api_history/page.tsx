@@ -164,7 +164,7 @@ const Api_Log = () => {
 
       {modalContent && (
         <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-          <div className="absolute z-20 w-[90vw] left-[5vw]">
+          <div className="absolute z-20 w-[90vw] left-[5vw] overflow-auto">
             <table className="w-full bg-gray-800 text-white rounded-lg overflow-hidden">
               <thead>
                 <tr>
