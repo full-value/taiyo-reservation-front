@@ -241,30 +241,33 @@ const Chat = () => {
                         : "shadow-[1px_2px_20px_0px_rgba(0,0,0,0.4)]"
                     )}
                   >
-                    <div className="sm:hidden absolute inset-0 bg-white/70"></div>
-                      <p className="font-semibold text-[20px] leading-[25.5px] text-[#091428] opacity-100 relative">
-                        予約番号：{message.options.id}
-                      </p>
-                      <div className="flex gap-6 justify-between mt-6 relative">
-                        <div className="flex flex-col gap-2 my-[9px]">
-                          <p className="font-normal text-5 leading-[19px] text-[#091428]">{message.options.flat_name}</p>
-                          <p className="font-normal text-4 leading-[14px] text-[#858688]">物件名</p>
-                          <hr />
-                          <p className="font-normal text-5 leading-[19px] text-[#091428]">{message.options.room_num}</p>
-                          <p className="font-normal text-4 leading-[14px] text-[#858688]">部屋番号</p>
-                          <hr />
-                          <p className="font-normal text-5 leading-[19px] text-[#091428]">{new Date(message.options.reservation_time).toLocaleDateString('en-CA')}</p>
-                          <p className="font-normal text-4 leading-[14px] text-[#858688]">予約⽇</p>
-                          <hr />
-                          <p className="font-normal text-5 leading-[19px] text-[#091428]">{message.options.division}</p>
-                          <p className="font-normal text-4 leading-[14px] text-[#858688]">予約区分</p>
-                        </div>
-                    </div>
+                     {
+                        message.options && message.options.length > 0 && (
+                          message.options.map((option: Option, idx: number) => (
+                            
+                            <div className="sm:hidden absolute inset-0 bg-white/70">
+                              <p className="font-semibold text-[20px] leading-[25.5px] text-[#091428] opacity-100 relative">
+                                予約番号：{option.id}
+                              </p>
+                              <div className="flex gap-6 justify-between mt-6 relative">
+                                <div className="flex flex-col gap-2 my-[9px]">
+                                  <p className="font-normal text-5 leading-[19px] text-[#091428]">{option.flat_name}</p>
+                                  <p className="font-normal text-4 leading-[14px] text-[#858688]">物件名</p>
+                                  <hr />
+                                  <p className="font-normal text-5 leading-[19px] text-[#091428]">{option.room_num}</p>
+                                  <p className="font-normal text-4 leading-[14px] text-[#858688]">部屋番号</p>
+                                  <hr />
+                                  <p className="font-normal text-5 leading-[19px] text-[#091428]">{new Date(option.reservation_time).toLocaleDateString('en-CA')}</p>
+                                  <p className="font-normal text-4 leading-[14px] text-[#858688]">予約⽇</p>
+                                  <hr />
+                                  <p className="font-normal text-5 leading-[19px] text-[#091428]">{option.division}</p>
+                                  <p className="font-normal text-4 leading-[14px] text-[#858688]">予約区分</p>
+                                </div>
+                              </div>
+                   
+                            </div> )))}   
+                   </div>
                   </div>
-   
-                </div>
-
-
                 <div className="flex gap-6 mt-5 justify-end">  
                   <Button  label='戻る' onClickHandler={()=>handleButtonClick("戻る",'')}/>
                 </div>
