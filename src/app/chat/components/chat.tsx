@@ -235,7 +235,7 @@ const Chat = () => {
                 <div className="flex flex-col w-full gap-3 flex-wrap mt-[10px] relative sm:hidden ">
                   <div 
                     className={clsx(
-                      "relative w-[90%] sm:w-[40%] rounded-[10px] border border-black/10 bg-no-repeat mt-8 p-7 overflow-hidden bg-contain bg-center",
+                      "relative w-[90%] sm:w-[40%] rounded-[10px] border border-black/10 bg-no-repeat mt-8 p-7 overflow-hidden bg-contain bg-yellow-100",
                       message.state === "OK"
                         ? "bg-[url('/assets/images/check_bg.png')] shadow-[3px_2px_34px_0px_rgba(0,210,0,0.5)]"
                         : "shadow-[1px_2px_20px_0px_rgba(0,0,0,0.4)]"
@@ -244,28 +244,36 @@ const Chat = () => {
                      {
                         message.options && message.options.length > 0 && (
                           message.options.map((option: Option, idx: number) => (
-                            
-                            <div className="sm:hidden absolute inset-0 bg-white/70">
-                              <p className="font-semibold text-[20px] leading-[25.5px] text-[#091428] opacity-100 relative">
-                                予約番号：{option.id}
-                              </p>
-                              <div className="flex gap-6 justify-between mt-6 relative">
-                                <div className="flex flex-col gap-2 my-[9px]">
-                                  <p className="font-normal text-5 leading-[19px] text-[#091428]">{option.flat_name}</p>
-                                  <p className="font-normal text-4 leading-[14px] text-[#858688]">物件名</p>
-                                  <hr />
-                                  <p className="font-normal text-5 leading-[19px] text-[#091428]">{option.room_num}</p>
-                                  <p className="font-normal text-4 leading-[14px] text-[#858688]">部屋番号</p>
-                                  <hr />
-                                  <p className="font-normal text-5 leading-[19px] text-[#091428]">{new Date(option.reservation_time).toLocaleDateString('en-CA')}</p>
-                                  <p className="font-normal text-4 leading-[14px] text-[#858688]">予約⽇</p>
-                                  <hr />
-                                  <p className="font-normal text-5 leading-[19px] text-[#091428]">{option.division}</p>
-                                  <p className="font-normal text-4 leading-[14px] text-[#858688]">予約区分</p>
-                                </div>
+                            <div className="sm:hidden p-4">
+                            <p className="font-semibold text-lg text-[#091428]">予約番号：{option.id}</p>
+                          
+                            <div className="flex flex-col gap-2 mt-4">
+                              <div>
+                                <p className="text-base text-[#091428]">{option.flat_name}</p>
+                                <p className="text-sm text-[#858688]">物件名</p>
                               </div>
-                   
-                            </div> )))}   
+                              <hr />
+                          
+                              <div>
+                                <p className="text-base text-[#091428]">{option.room_num}</p>
+                                <p className="text-sm text-[#858688]">部屋番号</p>
+                              </div>
+                              <hr />
+                          
+                              <div>
+                                <p className="text-base text-[#091428]">{new Date(option.reservation_time).toLocaleDateString('en-CA')}</p>
+                                <p className="text-sm text-[#858688]">予約⽇</p>
+                              </div>
+                              <hr />
+                          
+                              <div>
+                                <p className="text-base text-[#091428]">{option.division}</p>
+                                <p className="text-sm text-[#858688]">予約区分</p>
+                              </div>
+                            </div>
+                          </div>
+                           
+                        )))}   
                    </div>
                   </div>
                 <div className="flex gap-6 mt-5 justify-end">  
